@@ -1,3 +1,5 @@
+
+
 body{
     background-color: rgb(2, 18, 38);
     overflow-y: hidden;
@@ -13,7 +15,7 @@ body{
 #main{
     height:400px;
     width: 300px;
-    border: 1px solid white;
+    border: 1.5px solid rgb(255, 255, 255);
     border-radius: 3px;
     /* background-color: rgb(37, 43, 43); */
     background-color:rgb(165, 187, 206);
@@ -447,4 +449,14 @@ i:hover{
 }
 .xmk:active{
     transform: scale(0.98);
+}
+@media screen and (max-width: 600px){
+    body{
+        /* background-color: white; */
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;  
+        /* display: grid;
+        place-items: center; */
+    }
 }

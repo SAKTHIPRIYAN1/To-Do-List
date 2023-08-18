@@ -471,3 +471,10 @@ function strike_(bx){
 
  }
 
+// let body=document.getElementById('bd')
+//  function setFullScreen() {
+//     body.style.width = window.innerWidth + 'px';
+//     body.style.height = window.innerHeight + 'px';
+//   }
+
+//   setFullScreen()
