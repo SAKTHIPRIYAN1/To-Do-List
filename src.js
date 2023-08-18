@@ -1,0 +1,363 @@
+
+let task_sc=0
+/// making th pro and des come ...
+let pro_=document.querySelector('.pro')
+function pro(){
+    pro_.classList.remove("go")
+    pro_.classList.add("come")
+}
+
+//  setting the all task , description  and dates in whole array.....
+
+let taskall=[]
+let taskall_value= JSON.parse(localStorage.getItem('tasks'))
+if(taskall_value){
+    taskall=taskall_value
+}
+
+
+let des_all=[]
+let des_all_val=JSON.parse(localStorage.getItem('des'));
+if(des_all_val){
+    des_all=des_all_val
+}
+
+
+let date_all=[]
+let date_all_val=JSON.parse(localStorage.getItem('dates'));
+if(date_all_val){
+    date_all=date_all_val
+}
+
+let checked_tsk=[]
+let ch_tsk_all=JSON.parse(localStorage.getItem('check_task'));
+if(ch_tsk_all){
+    checked_tsk=ch_tsk_all
+}
+
+
+// localStorage.clear()
+// console.log(taskall)
+/// saving the data in local stroage ...
+
+function save() {
+    localStorage.setItem('tasks', JSON.stringify(taskall));
+    localStorage.setItem('des', JSON.stringify(des_all));
+    localStorage.setItem('dates', JSON.stringify(date_all));
+    
+}
+
+
+//initial taskss svaed in the local storage
+let tab=document.querySelector('.tab')
+function initial(){
+    for(let i=0;i<taskall.length;i++){
+    tab.innerHTML+=`
+    <div class="tr">
+
+    <div class="bx_div" onclick="box(this)">
+        <i class="fa-solid fa-square-check chk hide"></i>
+        <i class="fa-regular fa-square sq"></i>
+        
+    </div>
+
+    <div class="task_main">
+        <p onclick="pro2(this)">${taskall[i]}</p>
+        <div class="finish_line "></div>
+    </div>
+
+    <div class="del_div" onclick="del_task(this.parentNode)">
+        <i class="fa-solid fa-trash"></i>
+    </div>
+</div>
+    `
+    }
+}
+initial()
+
+/// striking the already striked tasksss...
+function striked(){
+    for(let i=0;i<checked_tsk.length;i++){
+        for(let j=0;j<taskall.length;j++){
+            if(checked_tsk[i]==taskall[j]){
+                bx=tab.children[j].children[0]
+                
+                //  strike_(tab.children[j].children[0])
+                let par=bx.parentNode
+                    let tsk_mn=par.childNodes[3]
+                    console.log(tsk_mn.childNodes[3])
+                    let fin=tsk_mn.childNodes[3]
+                    fin.classList.add('fin')
+                
+
+                    ////box....
+                    let checked;
+    let chk=bx.childNodes[1]
+    let sq=bx.childNodes[3]
+    console.log(chk)
+    console.log(sq)
+
+// to check the square is checked or nottttt......
+    if(chk.classList.contains('hide')){
+        checked = false;
+        console.log("oji")
+    }
+    else{
+        checked = true
+        console.log("oji")
+    }
+
+// to tick the square..............
+    if(!checked){
+        chk.classList.remove('hide')
+        sq.classList.add('hide')
+        console.log('checked..')
+        increase_tsk()
+        checked=true
+    }
+    else{
+        sq.classList.remove('hide')
+        chk.classList.add('hide')
+        console.log('removed..')
+        checked=false
+            }
+        
+            }
+        }
+
+    }
+}
+
+striked()
+/// the user input values.....
+let task=document.getElementById('task');
+let de=document.getElementById('des');
+let date_=document.getElementById('dt');
+
+
+//  description.....
+let task_de=document.querySelector('.tsk_de')
+let dt_de=document.querySelector('.date_de')
+let de_de=document.querySelector('.de_de')
+
+
+/// setiing minimum date as todayyy.......
+var today = new Date().toISOString().split('T')[0];
+date_.setAttribute('min', today);
+
+function submit(){
+    let score=0;
+    
+    ////evaluate the task..........
+    let ltt=task.value
+    if(ltt.length<=20 && ltt.length>=1){
+        score+=1
+        taskall.push(String(ltt))
+        console.log(taskall)
+        
+        
+    }
+    else{
+        task_wrn()
+    }
+    // evaluate the description....
+    let stt=de.value
+    if(stt.length>=1){
+        score+=1
+        des_all.push(String(stt));
+        console.log(des_all)
+      
+        
+    }
+    else{
+        console.log(stt)
+        des_wrn()
+    }
+   
+    //  evaluate the date (the date must not empty)
+    let dttt=date_.value
+    if(dttt.length>=1){
+        date_all.push(String(dttt))
+        score++
+    }
+    else{
+        date_wrn()
+    }
+    console.log(score)
+    if(score==3){
+        go()
+        createtask()
+    }
+}
+function go(){
+
+    save()
+    pro_.classList.remove("come")
+    pro_.classList.add("go")
+
+    //  resetinng the value
+    date_.value=''
+    de.value=''
+    task.value=''
+
+    // resetting the worng indicators....
+    task.style.outline='0px solid red'
+    task_de.style='display:none';
+
+    de.style.outline='0px solid red'
+    de_de.style='display:none'
+
+    date_.style.outline='0px solid red'
+    dt_de.style='display:none'
+}
+
+let pro_2=document.querySelector('.pro2')
+function go_s(){
+    pro_2.classList.remove("come")
+    pro_2.classList.add("go")
+}
+
+function pro2(task){
+    console.log(task)
+    let n;
+    for(let i=0;i<taskall.length;i++){
+        if(taskall[i]==task.innerHTML){
+            n=i
+        }
+    }
+    let task_s=document.getElementById("task_s")
+    task_s.innerHTML="&nbsp&nbsp"+taskall[n]
+
+    let des_s=document.getElementById("des_s")
+    des_s.innerHTML="&nbsp&nbsp"+des_all[n]
+
+     let dt_s=document.getElementById("dt_s")
+     dt_s.innerHTML=date_all[n]
+
+
+    pro_2.classList.remove("go")
+    pro_2.classList.add("come")
+}
+// creating the task in the main page..........
+let tr=document.querySelectorAll('.tr')
+
+
+function createtask(){
+        tab.innerHTML+=`
+        <div class="tr">
+
+        <div class="bx_div" onclick="box(this)">
+            <i class="fa-solid fa-square-check chk hide"></i>
+            <i class="fa-regular fa-square sq"></i>
+            
+        </div>
+
+        <div class="task_main">
+            <p onclick="pro2(this)">${taskall[taskall.length-1]}</p>
+            <div class="finish_line "></div>
+        </div>
+
+        <div class="del_div" onclick="del_task(this.parentNode)">
+            <i class="fa-solid fa-trash"></i>
+        </div>
+    </div>
+        `
+    
+}
+
+
+
+
+function task_wrn(){
+    task.style.outline='1px solid red'
+   
+    task_de.style='display:block'
+}
+function date_wrn(){
+    date_.style.outline='1px solid red'
+  
+    dt_de.style='display:block'
+}
+function des_wrn(){
+    de.style.outline='1px solid red'
+    
+    de_de.style='display:block'
+}
+
+///delete the task...
+function del_task(td){
+    console.log(td)
+    td.classList.add("del_task")
+    td.addEventListener("animationend",()=>{
+        td.style="display:none";
+        console.log('removeddd')
+    })
+  
+   
+}
+
+///checkbox_function
+let bo=document.querySelectorAll(".bx_div")
+function box(bx){
+    let checked;
+    let chk=bx.childNodes[1]
+    let sq=bx.childNodes[3]
+    console.log(chk)
+    console.log(sq)
+
+// to check the square is checked or nottttt......
+    if(chk.classList.contains('hide')){
+        checked = false;
+        console.log("oji")
+    }
+    else{
+        checked = true
+        console.log("oji")
+    }
+
+// to tick the square..............
+    if(!checked){
+        chk.classList.remove('hide')
+        sq.classList.add('hide')
+        console.log('checked..')
+        increase_tsk()
+        checked=true
+    }
+    else{
+        sq.classList.remove('hide')
+        chk.classList.add('hide')
+        
+        console.log('removed..')
+        checked=false
+    }
+    //  finding the index of bx
+    // calling the strike function to indicate the task is finished.............
+    strike_(bx)
+    
+
+}
+
+function strike_(bx){
+
+    let par=bx.parentNode
+    let tsk_mn=par.childNodes[3]
+    console.log(tsk_mn.childNodes[3])
+    let fin=tsk_mn.childNodes[3]
+    fin.classList.add('fin')
+    console.log(tsk_mn.childNodes[1].innerHTML)
+    checked_tsk.push(tsk_mn.childNodes[1].innerHTML)
+    console.log(checked_tsk)
+
+    ///store it in local strorage;;;;;
+    localStorage.setItem('check_task', JSON.stringify(checked_tsk));
+     
+}
+
+
+function increase_tsk(){
+    task_sc++;
+    let tsk_scr=document.querySelector('.tsk_scr')
+    tsk_scr.textContent="="+task_sc;
+
+}
+

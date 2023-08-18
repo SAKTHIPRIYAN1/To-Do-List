@@ -1,0 +1,14 @@
+
+{
+    "manifest_version":3,
+    "version":"1.0",
+    "name":"To Do",
+    "action": {
+        "default_popup": "index.html"
+    },
+    "permissions": [
+        "activeTab",
+        "tabs"
+    ],
+    "description":"This is an extension for saving works and it is used to track our works which inrease productivity"
+}
