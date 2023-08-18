@@ -1,5 +1,5 @@
 
-let task_sc=0
+
 /// making th pro and des come ...
 let pro_=document.querySelector('.pro')
 function pro(){
@@ -8,13 +8,26 @@ function pro(){
 }
 
 //  setting the all task , description  and dates in whole array.....
-
+let quote=document.querySelector('.quote');
+console.log()
 let taskall=[]
 let taskall_value= JSON.parse(localStorage.getItem('tasks'))
 if(taskall_value){
     taskall=taskall_value
 }
 
+
+function quote_() {
+    // console.log("quote , "+taskall.length)
+    if(taskall.length>=1){
+        quote.style="display:none;"
+    }
+    else{
+        quote.style="display:block;"
+    }
+    
+}
+quote_()
 
 let des_all=[]
 let des_all_val=JSON.parse(localStorage.getItem('des'));
@@ -35,7 +48,9 @@ if(ch_tsk_all){
     checked_tsk=ch_tsk_all
 }
 
-
+console.log(checked_tsk)
+let task_sc=checked_tsk.length
+console.log('task_sc'+task_sc)
 // localStorage.clear()
 // console.log(taskall)
 /// saving the data in local stroage ...
@@ -69,6 +84,8 @@ function initial(){
     <div class="del_div" onclick="del_task(this.parentNode)">
         <i class="fa-solid fa-trash"></i>
     </div>
+
+    <div class="cvr"></div>
 </div>
     `
     }
@@ -88,6 +105,8 @@ function striked(){
                     console.log(tsk_mn.childNodes[3])
                     let fin=tsk_mn.childNodes[3]
                     fin.classList.add('fin')
+                    let cvr=tsk_mn.parentNode.children[3]
+                    cvr.classList.add('cvv')
                 
 
                     ////box....
@@ -112,7 +131,7 @@ function striked(){
         chk.classList.remove('hide')
         sq.classList.add('hide')
         console.log('checked..')
-        increase_tsk()
+        // increase_tsk()
         checked=true
     }
     else{
@@ -213,11 +232,16 @@ function go(){
 
 let pro_2=document.querySelector('.pro2')
 function go_s(){
+    let re=document.querySelector('.re')
+    re.style='display:none'
     pro_2.classList.remove("come")
     pro_2.classList.add("go")
 }
 
 function pro2(task){
+    let re=document.querySelector('.re')
+    re.style='display:block'
+
     console.log(task)
     let n;
     for(let i=0;i<taskall.length;i++){
@@ -234,6 +258,7 @@ function pro2(task){
      let dt_s=document.getElementById("dt_s")
      dt_s.innerHTML=date_all[n]
 
+     remin(n)
 
     pro_2.classList.remove("go")
     pro_2.classList.add("come")
@@ -260,9 +285,11 @@ function createtask(){
         <div class="del_div" onclick="del_task(this.parentNode)">
             <i class="fa-solid fa-trash"></i>
         </div>
+
+        <div class="cvr"></div>
     </div>
         `
-    
+        quote_()
 }
 
 
@@ -285,16 +312,71 @@ function des_wrn(){
 }
 
 ///delete the task...
+
+/// delete the icon from the page.....
 function del_task(td){
+    let n;
     console.log(td)
     td.classList.add("del_task")
     td.addEventListener("animationend",()=>{
         td.style="display:none";
         console.log('removeddd')
+    
+        for(let i=0;i<tab.children.length;i++){
+            if(tab.children[i]==td){
+                n=i
+            }
+        }
+        tab.removeChild(td)
+        console.log(n);
+
+
+        /// delete from checked...
+        console.log(checked_tsk)
+        let temp_chkk=[]
+        for(let i=0;i<checked_tsk.length;i++){
+            if(taskall[n]!=checked_tsk[i]){
+                temp_chkk.push(checked_tsk[i])
+            }
+        }
+        console.log(temp_chkk)
+        checked_tsk=temp_chkk
+        localStorage.setItem('check_task',JSON.stringify(checked_tsk))
+        
+            
+        ///temp to store the copy of that valuessss
+        let temp_tsk=[];
+        let temp_des=[];
+        let temp_dt=[]
+
+        ////deleting from the all arraysss......
+        for(let i=0;i<taskall.length;i++){
+            if(i!=n){
+                temp_tsk.push(taskall[i])
+                temp_des.push(des_all[i])
+                temp_dt.push(date_all[i])
+            }
+        }
+        taskall=temp_tsk
+        quote_()
+        des_all=temp_des
+        date_all=temp_dt
+        // taskall.splice(n,n)
+        // console.log(taskall)
+        // console.log(des_all)
+        // console.log(date_all)
+
+        // delete from checked array.......
+        
+
+        //// deleting from theee localstorage by resaving the modified arrayyyy...
+        save()
     })
-  
+    
    
 }
+
+
 
 ///checkbox_function
 let bo=document.querySelectorAll(".bx_div")
@@ -320,7 +402,7 @@ function box(bx){
         chk.classList.remove('hide')
         sq.classList.add('hide')
         console.log('checked..')
-        increase_tsk()
+        // increase_tsk()
         checked=true
     }
     else{
@@ -337,27 +419,55 @@ function box(bx){
 
 }
 
+// localStorage.clear()
 function strike_(bx){
 
     let par=bx.parentNode
     let tsk_mn=par.childNodes[3]
-    console.log(tsk_mn.childNodes[3])
+    console.log(tsk_mn.parentNode)
     let fin=tsk_mn.childNodes[3]
     fin.classList.add('fin')
     console.log(tsk_mn.childNodes[1].innerHTML)
     checked_tsk.push(tsk_mn.childNodes[1].innerHTML)
     console.log(checked_tsk)
 
+    ///
+        let cvr=tsk_mn.parentNode.children[3]
+        cvr.classList.add('cvv')
+
     ///store it in local strorage;;;;;
     localStorage.setItem('check_task', JSON.stringify(checked_tsk));
      
 }
+ /// find the remaining dayssss....
+ function remin(n){
+            //  the specific date...
+            const expdate = new Date(date_all[n]);  
+
+            //  today's date...
+            const today = new Date();
+
+            //  the difference in milliseconds between the two dates
+            const diff_milli = expdate - today;
+
+            // Convert milliseconds to days....
+            const millisecond = 24 * 60 * 60 * 1000;
+            const day_diff = Math.floor(diff_milli / millisecond);
+            const hour_diff = Math.floor((diff_milli % millisecond) / (60 * 60 * 1000));
+            
+
+            /// setting the daysssss....
+            let dayss=document.querySelector('.daysss');
+            dayss.innerHTML=day_diff;
+
+            let hrss=document.querySelector('.hrr')
+            hrss.innerHTML=hour_diff;
+
+            if(dayss<0){
+                let re=document.querySelector('.re')
+                re.innerHTML='The Last Date expired.....'
+            }
 
 
-function increase_tsk(){
-    task_sc++;
-    let tsk_scr=document.querySelector('.tsk_scr')
-    tsk_scr.textContent="="+task_sc;
-
-}
+ }
 

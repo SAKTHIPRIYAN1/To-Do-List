@@ -138,16 +138,46 @@ h3{
 }
 .task_main:hover{
     /* text-decoration: underline; */
-    text-decoration: red underline 2px;
+    text-decoration: rgb(0, 9, 142) underline 2px;
 }
-
-
+.cvr{
+    height: 30px;
+    width: 0%;
+    background-color:blue;
+    opacity: 0.2;
+    left: 0px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 0;
+}
+.cvv{
+    width: 91%;
+}
+.quote{
+    color: rgb(36, 0, 0);
+    text-align: center;
+    width: 98%;
+    height: max-content;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    top: 35%;
+    display: none;
+    
+}
+.aut{
+    margin-left: 150px;
+    margin-top: 15px;
+    color: rgb(55, 1, 1);
+    font-style: italic;
+    font-weight: 900;
+}
 #task::placeholder,#dt::placeholder{
     font-family:monospace;
 }
 #des,#des_s{
     resize: none;
     padding-top: 5px;
+    padding-left: 5px;
     height:90px;
     outline: none;
     width: 90%;
@@ -164,6 +194,7 @@ h3{
     color:rgb(69, 63, 63);
     width:85%;
     font-size: 13px;
+    font-family: monospace;
     display: flex;
     align-items: center;
     padding-left: 20px;
@@ -181,7 +212,9 @@ h3{
     color: black;
     margin-left: 100px;
 }
-
+.re{
+    font-size: 18px;
+}
 #sub{
     margin-top: 20px;
     background-color: red;
@@ -252,11 +285,13 @@ transform: scale(0.96);
     display: none;
 }
 .tab{
-    width: 100%;
+    width: 98%;
     height: 190px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
+    /* background-color: aliceblue; */
+    margin-left: 10px;
     margin-left: 10px;
     margin-right: 10px;
     
@@ -403,9 +438,9 @@ i:hover{
 .xmk{
     position: absolute;
     color:rgb(29, 27, 27);
-    left: 2px;
+    left: 5px;
     zoom: 1.1;
-    top: 2px;
+    top: 5px;
 }
 .xmk:hover{
     color: red;
