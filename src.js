@@ -231,14 +231,20 @@ function go(){
 }
 
 let pro_2=document.querySelector('.pro2')
+let re=document.querySelector('.re')
+let exp=document.querySelector('.exp')
+
 function go_s(){
     let re=document.querySelector('.re')
     re.style='display:none'
     pro_2.classList.remove("come")
     pro_2.classList.add("go")
+    // re.classList.remove('none')
+    exp.style='display:none'
 }
 
 function pro2(task){
+
     let re=document.querySelector('.re')
     re.style='display:block'
 
@@ -441,6 +447,8 @@ function strike_(bx){
 }
  /// find the remaining dayssss....
  function remin(n){
+
+            console.log("reminnnn")
             //  the specific date...
             const expdate = new Date(date_all[n]);  
 
@@ -462,11 +470,15 @@ function strike_(bx){
 
             let hrss=document.querySelector('.hrr')
             hrss.innerHTML=hour_diff;
-
-            if(dayss<0){
-                let re=document.querySelector('.re')
-                re.innerHTML='The Last Date expired.....'
+            
+            if(day_diff<=0){
+               
+                re.style='display:none'
+                exp.style='display:block'
+                // re.innerHTML=` <span class="daysss" style="color: black;"></span> The <span class="hrr" style="color: black;">Last date</span> has expired..`
             }
+
+            console.log(day_diff)
 
 
  }

@@ -131,6 +131,7 @@ h3{
     outline: none;
     width: 90%;
     height: 20px;
+    font-family: monospace;
     
 }
 .task_main{
@@ -151,6 +152,9 @@ h3{
     position: absolute;
     cursor: pointer;
     z-index: 0;
+}
+.none{
+    display: none;
 }
 .cvv{
     width: 91%;
