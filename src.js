@@ -477,9 +477,5 @@ function strike_(bx){
                 exp.style='display:block'
                 // re.innerHTML=` <span class="daysss" style="color: black;"></span> The <span class="hrr" style="color: black;">Last date</span> has expired..`
             }
-
             console.log(day_diff)
-
-
  }
-
