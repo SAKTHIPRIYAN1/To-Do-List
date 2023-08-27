@@ -211,6 +211,8 @@ function submit(){
 function go(){
 
     save()
+    console.log('save from go....')
+    console.log(taskall)
     pro_.classList.remove("come")
     pro_.classList.add("go")
 
@@ -377,6 +379,8 @@ function del_task(td){
 
         //// deleting from theee localstorage by resaving the modified arrayyyy...
         save()
+        console.log('save from delete')
+        console.log(taskall)
     })
     
    
