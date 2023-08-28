@@ -161,8 +161,12 @@ let de_de=document.querySelector('.de_de')
 
 
 /// setiing minimum date as todayyy.......
-var today = new Date().toISOString().split('T')[0];
-date_.setAttribute('min', today);
+var today = new Date()
+let tmrw=new Date();
+tmrw.setDate(today.getDate()+1)
+tmrw=tmrw.toISOString().split('T')[0];
+console.log(tmrw)
+date_.setAttribute('min', tmrw);
 
 function submit(){
     let score=0;
@@ -261,7 +265,7 @@ function pro2(task){
     task_s.innerHTML="&nbsp&nbsp"+taskall[n]
 
     let des_s=document.getElementById("des_s")
-    des_s.innerHTML="&nbsp&nbsp"+des_all[n]
+    des_s.innerHTML=`<p class='des_s_va'>&nbsp&nbsp${des_all[n]}</p>`
 
      let dt_s=document.getElementById("dt_s")
      dt_s.innerHTML=date_all[n]
@@ -464,16 +468,16 @@ function strike_(bx){
 
             // Convert milliseconds to days....
             const millisecond = 24 * 60 * 60 * 1000;
-            const day_diff = Math.floor(diff_milli / millisecond);
-            const hour_diff = Math.floor((diff_milli % millisecond) / (60 * 60 * 1000));
+            const day_diff = Math.ceil(diff_milli / millisecond);
+            const hour_diff = Math.ceil((diff_milli % millisecond) / (60 * 60 * 1000));
             
 
             /// setting the daysssss....
             let dayss=document.querySelector('.daysss');
             dayss.innerHTML=day_diff;
-
-            let hrss=document.querySelector('.hrr')
-            hrss.innerHTML=hour_diff;
+            
+            // let hrss=document.querySelector('.hrr')
+            // hrss.innerHTML=hour_diff;
             
             if(day_diff<=0){
                
@@ -481,5 +485,6 @@ function strike_(bx){
                 exp.style='display:block'
                 // re.innerHTML=` <span class="daysss" style="color: black;"></span> The <span class="hrr" style="color: black;">Last date</span> has expired..`
             }
+            
             console.log(day_diff)
  }

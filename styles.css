@@ -188,8 +188,11 @@ h3{
     padding-left: 5px;
     height:90px;
     outline: none;
+    overflow-y: scroll;
+    overflow-x: scroll;
     width: 90%;
 }
+
 #task_s{
     color:rgb(69, 63, 63);
     font-family:monospace;
