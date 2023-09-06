@@ -173,7 +173,8 @@ function submit(){
     
     ////evaluate the task..........
     let ltt=task.value
-    if(ltt.length<=20 && ltt.length>=1){
+    let pat=/^[A-Za-z][A-Za-z0-9]*$/g
+    if(pat.test(ltt)){
         score+=1
         taskall.push(String(ltt))
         console.log(taskall)

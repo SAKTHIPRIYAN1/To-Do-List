@@ -102,8 +102,8 @@ body{
     position: absolute;
     top: 0px;
     left: 0px;
-background-color: #D9AFD9;
-background-image: linear-gradient(10deg, #D9AFD9 0%, #97D9E1 100%);
+    background: rgb(238,174,202);
+    background: linear-gradient(0deg, rgba(238,174,202,1) 0%, rgb(167, 194, 244) 100%);
 
     right: 0%;
     bottom: 0%;
@@ -132,9 +132,14 @@ h3{
 #task,#dt{
     outline: none;
     width: 90%;
+    
     height: 20px;
     font-family: monospace;
     
+}
+#task{
+overflow-y: scroll;
+    overflow-x: scroll;
 }
 .task_main{
     /* background-color: red; */
