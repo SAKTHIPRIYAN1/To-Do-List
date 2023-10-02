@@ -77,7 +77,7 @@ function initial(){
     </div>
 
     <div class="task_main">
-        <p onclick="pro2(this)">${taskall[i]}</p>
+        <p class='tsk_p' onclick="pro2(this)">${taskall[i]}</p>
         <div class="finish_line "></div>
     </div>
 
@@ -90,7 +90,7 @@ function initial(){
     `
     }
 }
-initial()
+
 
 /// striking the already striked tasksss...
 function striked(){
@@ -173,7 +173,7 @@ function submit(){
     
     ////evaluate the task..........
     let ltt=task.value
-    let pat=/^[A-Za-z][A-Za-z0-9]*$/g
+    let pat=/^[A-Za-z][A-Za-z0-9\s]*$/g
     if(pat.test(ltt)){
         score+=1
         taskall.push(String(ltt))
@@ -291,7 +291,7 @@ function createtask(){
         </div>
 
         <div class="task_main">
-            <p onclick="pro2(this)">${taskall[taskall.length-1]}</p>
+            <p class='tsk_p' onclick="pro2(this)">${taskall[taskall.length-1]}</p>
             <div class="finish_line "></div>
         </div>
 
